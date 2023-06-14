@@ -12,10 +12,10 @@
       events.onmessage = (event) => {
         const parsedData = JSON.parse(event.data);
 
-        console.log("message received", parsedData);
         const row = document.createElement("div");
 
-        row.textContent = `Event Received at ${Date.now()}, ${JSON.stringify(
+        const formattedDate = new Date().toISOString();
+        row.textContent = `Event Received at ${formattedDate}, ${JSON.stringify(
           parsedData
         )}`;
         eventContainer.appendChild(row);
