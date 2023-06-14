@@ -1,0 +1,29 @@
+<html>
+  <head> </head>
+  <body>
+    <div>
+      <h1>Events</h1>
+      <div id="events"></div>
+    </div>
+    <script>
+      const events = new EventSource("http://localhost:3000/events");
+      const eventContainer = document.querySelector("#events");
+
+      events.onmessage = (event) => {
+        const parsedData = JSON.parse(event.data);
+
+        console.log("message received", parsedData);
+        const row = document.createElement("div");
+
+        row.textContent = `Event Received at ${Date.now()}, ${JSON.stringify(
+          parsedData
+        )}`;
+        eventContainer.appendChild(row);
+      };
+      console.log(events);
+      events.onerror = (err) => {
+        console.log("there was an err", err);
+      };
+    </script>
+  </body>
+</html>
