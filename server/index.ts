@@ -42,11 +42,14 @@ app.get("/events", (req, res) => {
   });
 });
 
+let testCount = 0;
+
 app.post("/test", (_, res) => {
   console.log("ack");
+  testCount += 1;
   clients.forEach((client) => {
     console.log("writing to", client.id);
-    const message = `data: ${JSON.stringify({ message: "message" })}\n\n`;
+    const message = `data: ${JSON.stringify({ count: testCount })}\n\n`;
     client.response.write(message);
   });
   res.send({
